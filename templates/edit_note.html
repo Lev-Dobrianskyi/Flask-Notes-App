@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Редагувати нотатку{% endblock %}
+{% block content %}
+<a class="back-link" href="{{ url_for('index') }}">← До всіх нотаток</a>
+
+{% if note %}
+<h1 class="page-title">Редагування нотатки № {{ note['id'] }}</h1>
+
+<form class="form-card" method="post">
+    <label for="header">Заголовок</label>
+    <input type="text" id="header" name="header" value="{{ header }}" required>
+
+    <label for="text">Текст</label>
+    <textarea id="text" name="text" rows="8">{{ text }}</textarea>
+
+    <p class="error">{{ error }}</p>
+
+    <button class="btn" type="submit">Зберегти зміни</button>
+</form>
+{% else %}
+<p class="empty">Нотатку не знайдено</p>
+{% endif %}
+{% endblock %}

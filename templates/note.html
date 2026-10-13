@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}{% if note %}{{ note['header'] }}{% else %}Нотатку не знайдено{% endif %}{% endblock %}
+{% block content %}
+<a class="back-link" href="{{ url_for('index') }}">← До всіх нотаток</a>
+
+{% if note %}
+<article class="note-full">
+    <h1>{{ note['header'] }}</h1>
+    <p class="meta">№ {{ note['id'] }} · створено {{ note['created_at'] }}</p>
+    <div class="note-text">{{ note['text'] or '(без тексту)' }}</div>
+    <div class="actions">
+        <a class="btn" href="{{ url_for('edit', note_id=note['id']) }}">✏ Редагувати</a>
+        <form class="delete-form" method="post" action="{{ url_for('delete', note_id=note['id']) }}">
+            <button class="btn btn-danger" type="submit">🗑 Видалити</button>
+        </form>
+    </div>
+</article>
+{% else %}
+<p class="empty">Нотатку не знайдено</p>
+{% endif %}
+{% endblock %}
